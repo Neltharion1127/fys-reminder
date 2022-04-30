@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding: 40px;
 }
 
 .App-logo {
@@ -35,4 +36,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+.ant-btn {
+  margin: 20px;
+}
+.ant-table-wrapper{
+  margin-bottom: 20px;
 }

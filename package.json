@@ -2,10 +2,14 @@
   "name": "fys-reminder",
   "version": "0.1.0",
   "private": true,
+  "main": "main/main.js",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^4.20.2",
+    "electron-is-dev": "^2.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -15,7 +19,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \" wait-on http://localhost:3000 && electron . \" \" cross-env BROWSER=none npm start \" ",
+    "pack": "electron-builder",
+    "prepack": "react-scripts build",
+    "pack:dir": "electron-builder --dir"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +42,54 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^18.2.0",
+    "electron-builder": "^23.0.3",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "extends": null,
+    "productName": "fys reminder",
+    "copyright": "Sirius.",
+    "appId": "fys-reminder",
+    "directories": {
+      "output": "build-electron"
+    },
+    "files": [
+      "main/**/*",
+      "build/**/*"
+    ],
+    "extraResources": [
+      {
+        "filter": [
+          "./config.json",
+          "./server-config.json"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./public/favicon.ico",
+      "uninstallerIcon": "./public/favicon.ico",
+      "installerHeaderIcon": "./public/favicon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "fys reminder"
+    }
   }
 }
